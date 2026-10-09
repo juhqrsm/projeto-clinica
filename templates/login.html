@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar | Clínica Vida</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="pagina-login">
+  <main class="login-caixa">
+    <h1>✚ Clínica Vida</h1>
+    <p class="subtitulo">Acesso restrito à equipe da clínica.</p>
+
+    {% with mensagens = get_flashed_messages(with_categories=true) %}
+      {% for categoria, texto in mensagens %}
+        <div class="alerta alerta-{{ categoria }}">{{ texto }}</div>
+      {% endfor %}
+    {% endwith %}
+
+    <form method="post" action="{{ url_for('login') }}">
+      <div class="campo">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" value="{{ email or '' }}" required autofocus>
+      </div>
+      <div class="campo">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" required>
+      </div>
+      <button type="submit" class="botao botao-largo">Entrar</button>
+    </form>
+  </main>
+</body>
+</html>

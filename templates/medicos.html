@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block titulo %}Médicos{% endblock %}
+{% block conteudo %}
+<header class="cabecalho cabecalho-acoes">
+  <div>
+    <h1>Médicos</h1>
+    <p>Corpo clínico da Clínica Vida.</p>
+  </div>
+  <a href="{{ url_for('novo_medico') }}" class="botao">+ Novo médico</a>
+</header>
+
+<section class="cartao">
+  <div class="tabela-rolagem">
+    <table class="tabela">
+      <thead><tr><th>Nome</th><th>CRM</th><th>Especialidade</th><th>E-mail</th></tr></thead>
+      <tbody>
+        {% for m in medicos %}
+          <tr><td>{{ m.nome }}</td><td>{{ m.crm }}</td><td>{{ m.especialidade }}</td><td>{{ m.email or '—' }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

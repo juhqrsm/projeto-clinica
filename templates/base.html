@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block titulo %}Clínica{% endblock %} | Clínica Vida</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="layout">
+    <aside class="menu">
+      <h2 class="logo">✚ Clínica Vida</h2>
+      <p class="usuario">Olá, <strong>{{ usuario_nome }}</strong></p>
+      <nav>
+        <a href="{{ url_for('painel') }}" class="{{ 'ativo' if request.endpoint == 'painel' }}">Início</a>
+        <a href="{{ url_for('pacientes') }}" class="{{ 'ativo' if 'paciente' in request.endpoint }}">Pacientes</a>
+        <a href="{{ url_for('medicos') }}" class="{{ 'ativo' if 'medico' in request.endpoint }}">Médicos</a>
+        <a href="{{ url_for('agendamentos') }}" class="{{ 'ativo' if 'agendamento' in request.endpoint }}">Agendamentos</a>
+        <a href="{{ url_for('usuarios') }}" class="{{ 'ativo' if 'usuario' in request.endpoint }}">Usuários</a>
+        <a href="{{ url_for('logout') }}" class="sair">Sair</a>
+      </nav>
+    </aside>
+
+    <main class="conteudo">
+      {% with mensagens = get_flashed_messages(with_categories=true) %}
+        {% for categoria, texto in mensagens %}
+          <div class="alerta alerta-{{ categoria }}">{{ texto }}</div>
+        {% endfor %}
+      {% endwith %}
+
+      {% block conteudo %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

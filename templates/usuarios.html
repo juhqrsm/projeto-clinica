@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block titulo %}{% if usuario_edit %}Editar usuário{% else %}Usuários{% endif %}{% endblock %}
+
+{% block conteudo %}
+<header class="cabecalho">  
+  <h1>Gestão de Usuários</h1>
+  <p>Cadastre e gerencie os usuários que têm acesso ao sistema da clínica.</p>
+</header>
+
+<!-- FORMULÁRIO DE CADASTRO / EDIÇÃO -->
+<section class="cartao">
+  <h2>{% if usuario_edit %}✏️ Editar usuário{% else %}👤 Novo usuário{% endif %}</h2>
+  
+  <form method="post" action="{% if usuario_edit %}{{ url_for('editar_usuario', id_usuario=usuario_edit.id_usuario) }}{% else %}{{ url_for('usuarios') }}{% endif %}">
+    <div class="grade-form">
+      
+      <div class="campo campo-largo">
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" name="nome" value="{{ usuario_edit.nome if usuario_edit else '' }}" required placeholder="Ex: Maria Silva">
+      </div>
+
+      <div class="campo">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" value="{{ usuario_edit.email if usuario_edit else '' }}" required placeholder="nome@clinica.com">
+      </div>
+
+      <div class="campo">
+        <label for="senha">
+          Senha {% if usuario_edit %}<small style="font-weight: normal; opacity: 0.8;">(deixe em branco para não alterar)</small>{% endif %}
+        </label>
+        <input type="password" id="senha" name="senha" {% if not usuario_edit %}required{% endif %} placeholder="••••••••">
+      </div>
+
+    </div>
+
+    <div class="acoes-form">
+      <button type="submit" class="botao">
+        {% if usuario_edit %}Salvar alterações{% else %}Cadastrar usuário{% endif %}
+      </button>
+      
+      {% if usuario_edit %}
+        <a href="{{ url_for('usuarios') }}" class="botao botao-secundario">Cancelar</a>
+      {% endif %}
+    </div>
+  </form>
+</section>
+
+<!-- LISTAGEM DE USUÁRIOS CADASTRADOS -->
+<section class="cartao">
+  <h2>📋 Usuários cadastrados</h2>
+  
+  <div class="tabela-container">
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th style="text-align: center;">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in usuarios %}
+        <tr>
+          <td>{{ u.id_usuario }}</td>
+          <td><strong>{{ u.nome }}</strong></td>
+          <td>{{ u.email }}</td>
+          <td style="text-align: center;">
+            <div class="acoes-tabela" style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+              <a href="{{ url_for('editar_usuario', id_usuario=u.id_usuario) }}" class="link-acao">Editar</a>
+              
+              {% if u.id_usuario != session.get('usuario_id') %}
+                <form method="post" action="{{ url_for('excluir_usuario', id_usuario=u.id_usuario) }}" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja excluir o usuário {{ u.nome }}?');">
+                  <button type="submit" class="link-acao link-danger" style="background: none; border: none; padding: 0; font: inherit; cursor: pointer;">Excluir</button>
+                </form>
+              {% else %}
+                <span class="tag" style="font-size: 0.8em; opacity: 0.7;">(Você)</span>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="4" style="text-align: center; padding: 20px;">Nenhum usuário cadastrado.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

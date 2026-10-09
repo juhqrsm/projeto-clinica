@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block titulo %}Agendamentos{% endblock %}
+{% block conteudo %}
+<header class="cabecalho cabecalho-acoes">
+  <div>
+    <h1>Agendamentos</h1>
+    <p>Ordenados por data e horário da consulta.</p>
+  </div>
+  <a href="{{ url_for('novo_agendamento') }}" class="botao">+ Novo agendamento</a>
+</header>
+
+<section class="cartao">
+  <div class="tabela-rolagem">
+    <table class="tabela">
+      <thead>
+        <tr><th>Data</th><th>Hora</th><th>Paciente</th><th>Telefone</th><th>Médico</th><th>Especialidade</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {% for a in agendamentos %}
+          <tr>
+            <td>{{ a.data_consulta | data_br }}</td>
+            <td>{{ a.hora_consulta | hora }}</td>
+            <td>{{ a.paciente }}</td>
+            <td>{{ a.telefone }}</td>
+            <td>{{ a.medico }}</td>
+            <td>{{ a.especialidade }}</td>
+            <td><span class="selo selo-{{ a.status }}">{{ a.status }}</span></td>
+          </tr>
+        {% else %}
+          <tr><td colspan="7" class="vazio">Nenhum agendamento cadastrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

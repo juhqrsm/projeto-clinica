@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block titulo %}Pacientes{% endblock %}
+{% block conteudo %}
+<header class="cabecalho cabecalho-acoes">
+  <div>
+    <h1>Pacientes</h1>
+    <p>Busque pelo nome ou pelo CPF completo.</p>
+  </div>
+  <a href="{{ url_for('novo_paciente') }}" class="botao">+ Novo paciente</a>
+</header>
+
+<form method="get" action="{{ url_for('pacientes') }}" class="busca">
+  <input type="search" name="q" value="{{ termo }}" placeholder="Ex.: Silva ou 529.982.247-25" aria-label="Termo da busca">
+  <button type="submit" class="botao">Buscar</button>
+  {% if termo %}<a href="{{ url_for('pacientes') }}" class="botao botao-secundario">Limpar</a>{% endif %}
+</form>
+
+<section class="cartao">
+  <p class="contagem">{{ pacientes | length }} paciente(s){% if termo %} para “{{ termo }}”{% endif %}</p>
+  <div class="tabela-rolagem">
+    <table class="tabela">
+      <thead>
+        <tr><th>Nome</th><th>CPF</th><th>Nascimento</th><th>Telefone</th></tr>
+      </thead>
+      <tbody>
+        {% for p in pacientes %}
+          <tr>
+            <td>{{ p.nome }}</td>
+            <td><code>{{ p.cpf }}</code></td>
+            <td>{{ p.data_nascimento | data_br }}</td>
+            <td>{{ p.telefone }}</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="4" class="vazio">Nenhum paciente encontrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

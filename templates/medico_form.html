@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block titulo %}Novo médico{% endblock %}
+{% block conteudo %}
+<header class="cabecalho"><h1>Novo médico</h1></header>
+<section class="cartao">
+  <form method="post" action="{{ url_for('novo_medico') }}">
+    <div class="grade-form">
+      <div class="campo campo-largo">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" value="{{ dados.nome or '' }}" required>
+      </div>
+      <div class="campo">
+        <label for="crm">CRM</label>
+        <input type="text" id="crm" name="crm" value="{{ dados.crm or '' }}" placeholder="CRM-SP 123456" required>
+      </div>
+      <div class="campo">
+        <label for="especialidade">Especialidade</label>
+        <input type="text" id="especialidade" name="especialidade" value="{{ dados.especialidade or '' }}" required>
+      </div>
+      <div class="campo campo-largo">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" value="{{ dados.email or '' }}">
+      </div>
+    </div>
+    <div class="acoes-form">
+      <button type="submit" class="botao">Salvar médico</button>
+      <a href="{{ url_for('medicos') }}" class="botao botao-secundario">Cancelar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

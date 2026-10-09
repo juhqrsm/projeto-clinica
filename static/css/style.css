@@ -1,0 +1,389 @@
+/* ===== 1. Variáveis e reset ===== */
+:root {
+  --cor-fundo: #f1f5f9;
+  --cor-branco: #ffffff;
+  --cor-texto: #0f172a;
+  --cor-suave: #64748b;
+  --cor-primaria: #0f766e;
+  --cor-primaria-escura: #115e59;
+  --cor-menu: #134e4a;
+  --cor-borda: #d6dee7;
+  --cor-erro: #b91c1c;
+  --cor-sucesso: #15803d;
+  --cor-aviso: #b45309;
+  --raio: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  line-height: 1.5;
+}
+
+/* ===== 2. Login ===== */
+.pagina-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--cor-menu), var(--cor-primaria));
+}
+
+.login-caixa {
+  width: 100%;
+  max-width: 380px;
+  background-color: var(--cor-branco);
+  border-radius: var(--raio);
+  padding: 32px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, .2);
+}
+
+.login-caixa h1 {
+  font-size: 24px;
+  color: var(--cor-primaria);
+}
+
+.subtitulo {
+  color: var(--cor-suave);
+  margin-bottom: 20px;
+}
+
+/* ===== 3. Layout com menu ===== */
+.layout {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: 100vh;
+}
+
+.menu {
+  background-color: var(--cor-menu);
+  color: #ccfbf1;
+  padding: 24px 16px;
+}
+
+.logo {
+  color: var(--cor-branco);
+  font-size: 20px;
+  margin-bottom: 8px;
+  padding-left: 12px;
+}
+
+.usuario {
+  font-size: 14px;
+  padding: 0 12px 16px;
+  border-bottom: 1px solid #1f6f69;
+  margin-bottom: 16px;
+}
+
+.menu nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.menu a {
+  color: #ccfbf1;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: var(--raio);
+}
+
+.menu a:hover {
+  background-color: #115e59;
+}
+
+.menu a.ativo {
+  background-color: var(--cor-branco);
+  color: var(--cor-menu);
+  font-weight: 600;
+}
+
+.menu a.sair {
+  margin-top: 16px;
+  border: 1px solid #2c7a74;
+}
+
+.conteudo {
+  padding: 32px;
+  min-width: 0;  /* sem isto, uma tabela larga estica a grade inteira */
+}
+
+/* ===== 4. Cabeçalho, cartões e alertas ===== */
+.cabecalho {
+  margin-bottom: 24px;
+}
+
+.cabecalho h1 {
+  font-size: 26px;
+}
+
+.cabecalho p,
+.contagem {
+  color: var(--cor-suave);
+}
+
+.cabecalho-acoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cartao {
+  background-color: var(--cor-branco);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.cartao h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.resumo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.resumo-item {
+  background-color: var(--cor-branco);
+  border: 1px solid var(--cor-borda);
+  border-left: 4px solid var(--cor-primaria);
+  border-radius: var(--raio);
+  padding: 16px;
+  color: var(--cor-texto);
+  text-decoration: none;
+}
+
+.resumo-item span {
+  display: block;
+  color: var(--cor-suave);
+  font-size: 14px;
+}
+
+.resumo-item strong {
+  font-size: 28px;
+}
+
+.lista {
+  list-style: none;
+  margin-bottom: 16px;
+}
+
+.lista li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.alerta {
+  padding: 10px 14px;
+  border-radius: var(--raio);
+  margin-bottom: 16px;
+  font-size: 15px;
+  border-left: 4px solid;
+}
+
+.alerta-erro {
+  background-color: #fee2e2;
+  color: var(--cor-erro);
+}
+
+.alerta-sucesso {
+  background-color: #dcfce7;
+  color: var(--cor-sucesso);
+}
+
+.alerta-aviso {
+  background-color: #fef3c7;
+  color: var(--cor-aviso);
+}
+
+/* ===== 5. Formulários e botões ===== */
+.campo {
+  margin-bottom: 16px;
+}
+
+.campo label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.campo input,
+.campo select,
+.campo textarea,
+.busca input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  font-family: inherit;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background-color: var(--cor-branco);
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus,
+.busca input:focus {
+  outline: 2px solid var(--cor-primaria);
+  border-color: var(--cor-primaria);
+}
+
+.grade-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 16px;
+}
+
+.campo-largo {
+  grid-column: 1 / -1;
+}
+
+.consentimento {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px dashed var(--cor-primaria);
+  border-radius: var(--raio);
+  background-color: #f0fdfa;
+  font-size: 14px;
+}
+
+.busca {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.botao {
+  display: inline-block;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--cor-branco);
+  background-color: var(--cor-primaria);
+  border: none;
+  border-radius: var(--raio);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.botao:hover {
+  background-color: var(--cor-primaria-escura);
+}
+
+.botao-secundario {
+  background-color: transparent;
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
+}
+
+.botao-largo {
+  width: 100%;
+}
+
+.acoes-form {
+  display: flex;
+  gap: 8px;
+}
+
+/* ===== 6. Tabelas e selos ===== */
+.tabela-rolagem {
+  overflow-x: auto;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela th,
+.tabela td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--cor-borda);
+  font-size: 15px;
+}
+
+.tabela th {
+  background-color: var(--cor-fundo);
+  color: var(--cor-suave);
+  font-size: 13px;
+}
+
+.tabela code {
+  font-family: Consolas, monospace;
+  font-size: 14px;
+}
+
+.vazio {
+  text-align: center;
+  color: var(--cor-suave);
+}
+
+.selo {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.selo-agendada {
+  background-color: #ccfbf1;
+  color: var(--cor-primaria);
+}
+
+.selo-realizada {
+  background-color: #dcfce7;
+  color: var(--cor-sucesso);
+}
+
+.selo-cancelada {
+  background-color: #fee2e2;
+  color: var(--cor-erro);
+}
+
+/* ===== 7. Responsivo ===== */
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .menu nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .menu a.sair {
+    margin-top: 0;
+  }
+
+  .resumo,
+  .grade-form {
+    grid-template-columns: 1fr;
+  }
+
+  .conteudo {
+    padding: 16px;
+  }
+} 

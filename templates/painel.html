@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block titulo %}Início{% endblock %}
+{% block conteudo %}
+<header class="cabecalho">
+  <h1>Bem-vindo(a), {{ usuario_nome }}</h1>
+  <p>Escolha um recurso no menu ou use os atalhos abaixo.</p>
+</header>
+
+<section class="resumo">
+  <a class="resumo-item" href="{{ url_for('pacientes') }}"><span>Pacientes</span><strong>{{ totais.pacientes }}</strong></a>
+  <a class="resumo-item" href="{{ url_for('medicos') }}"><span>Médicos</span><strong>{{ totais.medicos }}</strong></a>
+  <a class="resumo-item" href="{{ url_for('agendamentos') }}"><span>Consultas futuras</span><strong>{{ totais.proximas }}</strong></a>
+</section>
+
+<section class="cartao">
+  <h2>Próximas consultas</h2>
+  <ul class="lista">
+    {% for c in proximos %}
+      <li><strong>{{ c.data_consulta | data_br }} às {{ c.hora_consulta | hora }}</strong> · {{ c.paciente }} com {{ c.medico }}</li>
+    {% else %}
+      <li>Nenhuma consulta agendada.</li>
+    {% endfor %}
+  </ul>
+  <a href="{{ url_for('novo_agendamento') }}" class="botao">+ Agendar consulta</a>
+</section>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block titulo %}Novo agendamento{% endblock %}
+{% block conteudo %}
+<header class="cabecalho">
+  <h1>Novo agendamento</h1>
+  <p>Toda consulta é de um paciente com um médico.</p>
+</header>
+
+<section class="cartao">
+  <form method="post" action="{{ url_for('novo_agendamento') }}">
+    <div class="grade-form">
+      <div class="campo">
+        <label for="id_paciente">Paciente</label>
+        <select id="id_paciente" name="id_paciente" required>
+          <option value="">Selecione...</option>
+          {% for p in pacientes %}
+            <option value="{{ p.id_paciente }}" {{ 'selected' if dados.id_paciente == p.id_paciente|string }}>{{ p.nome }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="campo">
+        <label for="id_medico">Médico</label>
+        <select id="id_medico" name="id_medico" required>
+          <option value="">Selecione...</option>
+          {% for m in medicos %}
+            <option value="{{ m.id_medico }}" {{ 'selected' if dados.id_medico == m.id_medico|string }}>{{ m.nome }} ({{ m.especialidade }})</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="campo">
+        <label for="data_consulta">Data</label>
+        <input type="date" id="data_consulta" name="data_consulta" value="{{ dados.data_consulta or '' }}" required>
+      </div>
+      <div class="campo">
+        <label for="hora_consulta">Horário</label>
+        <input type="time" id="hora_consulta" name="hora_consulta" value="{{ dados.hora_consulta or '' }}" min="07:00" max="19:00" step="1800" required>
+      </div>
+      <div class="campo campo-largo">
+        <label for="observacao">Observação</label>
+        <textarea id="observacao" name="observacao" rows="2">{{ dados.observacao or '' }}</textarea>
+      </div>
+    </div>
+    <div class="acoes-form">
+      <button type="submit" class="botao">Agendar</button>
+      <a href="{{ url_for('agendamentos') }}" class="botao botao-secundario">Cancelar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}
