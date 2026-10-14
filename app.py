@@ -19,6 +19,14 @@ from db import consultar, executar
 app = Flask(__name__)
 app.secret_key = os.environ["SECRET_KEY"]
 
+import os
+
+# Tenta pegar da variável de ambiente; se não existir, lança um erro claro
+CHAVE_FERNET = os.getenv("CHAVE_FERNET")
+
+if not CHAVE_FERNET:
+    raise RuntimeError("A variável de ambiente 'CHAVE_FERNET' não foi definida!")
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
