@@ -53,3 +53,11 @@ def mascarar_cpf(cpf):
     """Mostra só o meio do CPF na tela: ***.982.247-**"""
     d = so_digitos(cpf)
     return f"***.{d[3:6]}.{d[6:9]}-**"
+
+import os
+
+chave_env = os.getenv("CHAVE_HMAC")
+if not chave_env:
+    raise RuntimeError("A variável de ambiente CHAVE_HMAC não foi definida no servidor!")
+
+_chave_hmac = chave_env.encode()
