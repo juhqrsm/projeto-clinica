@@ -3,23 +3,18 @@ import os
 import time
 from datetime import date, datetime, timedelta
 from functools import wraps
-
-from dotenv import load_dotenv
-
-load_dotenv()  # lê o .env ANTES de importar seguranca.py, que usa as chaves
-
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from pymysql.err import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
-
-
+from dotenv import load_dotenv
 import seguranca
 from db import consultar, executar
 
 app = Flask(__name__)
-app.secret_key = os.environ["SECRET_KEY"]
 
-import os
+load_dotenv()
+
+app.secret_key = os.getenv("SECRET_KEY", "chave_secreta_dev_clinica_vida_123")
 
 # Tenta pegar da variável de ambiente; se não existir, lança um erro claro
 CHAVE_FERNET = os.getenv("CHAVE_FERNET")
