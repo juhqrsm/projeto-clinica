@@ -3,8 +3,18 @@ import hashlib
 import hmac
 import os
 import re
+from dotenv import load_dotenv
 
 from cryptography.fernet import Fernet
+# Carrega as variáveis do ficheiro .env se existir localmente
+load_dotenv()
+
+# os.getenv não lança KeyError se a variável não existir
+_chave_hmac = os.getenv("CHAVE_HMAC", "chave_hmac_padrao_para_desenvolvimento_123").encode()
+
+# Faz o mesmo para a chave Fernet para evitar o próximo erro
+_chave_fernet = os.getenv("CHAVE_FERNET", "chave_fernet_padrao_para_desenvolvimento")
+
 
 # As chaves vêm do .env: nunca ficam escritas no código.
 _fernet = Fernet(os.environ["CHAVE_FERNET"].encode())
